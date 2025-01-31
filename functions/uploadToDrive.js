@@ -1,10 +1,9 @@
 const { google } = require('googleapis');
-const fs = require('fs');
 
 exports.handler = async (event, context) => {
   try {
     const auth = new google.auth.GoogleAuth({
-      keyFile: 'credentials.json',
+      credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS), // Read from environment variable
       scopes: ['https://www.googleapis.com/auth/drive'],
     });
 
