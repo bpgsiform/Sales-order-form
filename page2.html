@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Order Form - Page 2</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <section class="container">
+    <header>Sales Order Form</header>
+    <div class="form">
+      <div class="table-container">
+        <table class="fillable-table" id="order-table" aria-label="Order Details Table">
+          <thead>
+            <tr>
+              <th>ITEM DESCRIPTION</th>
+              <th>QUANTITY</th>
+              <th>SIZE</th>
+              <th>TYPE</th>
+              <th>UNIT PRICE</th>
+              <th>TOTAL PRICE</th>
+              <th>REMOVE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="ITEM DESCRIPTION"><textarea></textarea></td>
+              <td data-label="QUANTITY"><input type="number" class="quantity"></td>
+              <td data-label="SIZE"><textarea></textarea></td>
+              <td data-label="TYPE"><textarea></textarea></td>
+              <td data-label="UNIT PRICE"><input type="number" class="unit-price"></td>
+              <td data-label="TOTAL PRICE"><input type="text" readonly value="0.00"></td>
+              <td><button type="button" class="remove-row-button">Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button type="button" id="add-row-button">Add Order</button>
+      <button type="button" id="generate-invoice-button">Generate Invoice</button>
+      <button type="button" onclick="window.location.href='index.html'">Go back to Home Page</button>
+    </div>
+  </section>
+</body>
+</html>

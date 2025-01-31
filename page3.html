@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="invoice.css">
+  <title>Invoice</title>
+  <style>
+    .invoice-btns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .back-btn {
+      background-color: #f0ad4e; /* Assuming this is the color of the "add order" button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .submit-btn {
+      background-color: #5cb85c; /* Green for the submit button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .download-btn {
+      background-color: #0275d8; /* Blue for the download button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #after-submit-message {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .submit-another-btn {
+      background-color: #0275d8; /* Blue for the submit another button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-wrapper" id="print-area">
+    <div class="invoice">
+      <div class="invoice-container">
+        <div class="invoice-head">
+          <div class="invoice-head-top">
+            <div class="invoice-head-top-left text-start">
+              <img src="bpgsi-logo.png" alt="Company Logo">
+            </div>
+            <div class="invoice-head-top-right text-end">
+              <h3>Invoice</h3>
+            </div>
+          </div>
+          <div class="hr"></div>
+          <div class="invoice-head-middle">
+            <div class="invoice-head-middle-left text-start">
+              <p><span class="text-bold">Transaction Date</span>: <span id="transaction-date"></span></p>
+            </div>
+            <div class="invoice-head-middle-right text-end">
+              <p><span class="text-bold">Delivery Date</span>: <span id="delivery-date"></span></p>
+            </div>
+          </div>
+          <div class="hr"></div>
+          <div class="invoice-head-bottom">
+            <div class="invoice-head-bottom-left">
+              <ul>
+                <li class='text-bold'>Invoiced To:</li>
+                <li id="invoice-to-name"></li>
+                <li id="invoice-to-contact-person"></li>
+                <li id="invoice-to-designation"></li>
+                <li id="invoice-to-contact-number"></li>
+                <li id="invoice-to-address"></li>
+              </ul>
+            </div>
+            <div class="invoice-head-bottom-right">
+              <ul>
+                <li class='text-bold'>Order Details:</li>
+                <li id="order-transmitted"></li>
+                <li id="confirmation-attachment"></li>
+                <li id="delivery-method"></li>
+                <li id="terms-of-payment"></li>
+                <li id="payment-transfer-mode"></li>
+                <li id="buyer-type"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="overflow-view">
+          <div class="invoice-body">
+            <table>
+              <thead>
+                <tr>
+                  <td class="text-bold">Item Description</td>
+                  <td class="text-bold">Quantity</td>
+                  <td class="text-bold">Size</td>
+                  <td class="text-bold">Type</td>
+                  <td class="text-bold">Unit Price</td>
+                  <td class="text-bold">Total Price</td>
+                </tr>
+              </thead>
+              <tbody id="invoice-items">
+                <!-- Items will be injected here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="invoice-foot text-center">
+          <p><span class="text-bold text-center">NOTE:&nbsp;</span>This is a computer-generated receipt and does not require a physical signature.</p>
+          <div class="invoice-btns">
+            <button type="button" class="back-btn" onclick="goBack()">
+              <span>Back</span>
+            </button>
+            <button type="button" class="download-btn" onclick="downloadInvoice()">
+              <span>
+                <i class="fa-solid fa-download"></i>
+              </span>
+              <span>Download</span>
+            </button>
+            <button type="button" class="submit-btn" onclick="submitInvoice()">
+              <span>Submit</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- After Submit Message -->
+  <div id="after-submit-message">
+    <p><strong>Thank you! Your invoice has been submitted successfully.</strong></p>
+    <button type="button" class="submit-another-btn" onclick="submitAnother()">
+      Submit Another
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+
+    function submitInvoice() {
+      // Hide the invoice content
+      document.getElementById('print-area').style.display = 'none';
+
+      // Show the "after submit" message
+      document.getElementById('after-submit-message').style.display = 'block';
+    }
+
+    function submitAnother() {
+      // Clear localStorage if needed
+      localStorage.clear();
+
+      // Redirect to the first page
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
