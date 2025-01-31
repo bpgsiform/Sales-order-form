@@ -181,6 +181,7 @@ async function generatePDF() {
 
   // Get the HTML content to be converted to PDF
   const invoiceElement = document.querySelector('.invoice');
+
   doc.html(invoiceElement, {
     callback: async function (doc) {
       // Save the PDF as a blob
