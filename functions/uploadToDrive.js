@@ -1,4 +1,5 @@
 const { google } = require('googleapis');
+const fs = require('fs');  // Make sure to include this line
 
 exports.handler = async (event, context) => {
   try {
@@ -14,7 +15,7 @@ exports.handler = async (event, context) => {
     };
     const media = {
       mimeType: 'application/pdf',
-      body: fs.createReadStream('/tmp/invoice.pdf'),
+      body: fs.createReadStream('/tmp/invoice.pdf'), // Ensure the file exists in this location
     };
 
     const res = await drive.files.create({
