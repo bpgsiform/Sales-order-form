@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="invoice.css">
   <title>Invoice</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Include jsPDF -->
   <style>
     .invoice-btns {
       display: flex;
@@ -152,23 +153,59 @@
   <script src="script.js"></script>
 
   <script>
-    function goBack() {
-      window.history.back();
+    // Function to generate PDF
+    function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Add content to the PDF
+      doc.text("Sales Order Invoice", 20, 20); // Add a title
+
+      // Add specific form data (you can add more fields as needed)
+      doc.text(`Transaction Date: ${document.getElementById("transaction-date").innerText}`, 20, 30);
+      doc.text(`Delivery Date: ${document.getElementById("delivery-date").innerText}`, 20, 40);
+      doc.text(`Invoiced To: ${document.getElementById("invoice-to-name").innerText}`, 20, 50);
+
+      // Add more form details based on your requirements
+
+      // Add item details (you can loop through items if needed)
+      const items = document.getElementById("invoice-items").getElementsByTagName("tr");
+      let rowY = 60; // starting Y position
+      for (let i = 0; i < items.length; i++) {
+        const cols = items[i].getElementsByTagName("td");
+        doc.text(cols[0].innerText, 20, rowY); // Item Description
+        doc.text(cols[1].innerText, 70, rowY); // Quantity
+        doc.text(cols[2].innerText, 110, rowY); // Size
+        doc.text(cols[3].innerText, 150, rowY); // Type
+        doc.text(cols[4].innerText, 190, rowY); // Unit Price
+        doc.text(cols[5].innerText, 230, rowY); // Total Price
+        rowY += 10;
+      }
+
+      // Save the PDF file
+      doc.save("sales_order_invoice.pdf");
     }
 
+    // Function for the submit button
     function submitInvoice() {
       // Hide the invoice content
       document.getElementById('print-area').style.display = 'none';
 
       // Show the "after submit" message
       document.getElementById('after-submit-message').style.display = 'block';
+
+      // Generate the PDF
+      generatePDF();
     }
 
-    function submitAnother() {
-      // Clear localStorage if needed
-      localStorage.clear();
+    // Function to go back
+    function goBack() {
+      window.history.back();
+    }
 
-      // Redirect to the first page
+    // Function to submit another invoice
+    function submitAnother() {
+      localStorage.clear();
       window.location.href = 'index.html';
     }
   </script>
