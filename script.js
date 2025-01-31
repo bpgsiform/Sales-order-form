@@ -219,9 +219,35 @@ async function generatePDF() {
 
 // Function to handle the "Submit Another" button click
 function submitAnother() {
-  // Clear localStorage if needed
+  // Clear localStorage and reset border styles
   localStorage.clear();
+  resetFormBorders();
 
   // Redirect to the first page
   window.location.href = 'index.html';
+}
+
+// Function to reset border styles of form fields
+function resetFormBorders() {
+  const requiredFields = [
+    "transaction-date",
+    "delivery-date",
+    "account-name",
+    "contact-person",
+    "contact-number",
+    "delivery-address",
+    "order-transmitted",
+    "confirmation-attachment",
+    "delivery-method",
+    "terms-of-payment",
+    "payment-transfer-mode",
+    "buyer-type"
+  ];
+  
+  requiredFields.forEach(id => {
+    const field = document.getElementById(id);
+    if (field) {
+      field.style.border = ""; // Reset border styles
+    }
+  });
 }
