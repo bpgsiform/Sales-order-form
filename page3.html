@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="invoice.css">
   <title>Invoice</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Include jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script> <!-- Include html2pdf -->
   <style>
     .invoice-btns {
       display: flex;
@@ -153,37 +154,28 @@
   <script src="script.js"></script>
 
   <script>
-    // Function to generate PDF
+    // Function to generate PDF using html2pdf
     function generatePDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+      const element = document.querySelector('.invoice');  // Target the invoice element
 
-      // Add content to the PDF
-      doc.text("Sales Order Invoice", 20, 20); // Add a title
+      const opt = {
+        margin:       0.5,     // Adjust margins if necessary
+        filename:     'invoice.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { dpi: 192, letterRendering: true },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
 
-      // Add specific form data (you can add more fields as needed)
-      doc.text(`Transaction Date: ${document.getElementById("transaction-date").innerText}`, 20, 30);
-      doc.text(`Delivery Date: ${document.getElementById("delivery-date").innerText}`, 20, 40);
-      doc.text(`Invoiced To: ${document.getElementById("invoice-to-name").innerText}`, 20, 50);
+      html2pdf().from(element).set(opt).save().then(() => {
+        alert('Invoice submitted and uploaded successfully!');
+      }).catch(error => {
+        console.error('Error generating PDF:', error);
+        alert('Failed to generate PDF. Please try again.');
+      });
 
-      // Add more form details based on your requirements
-
-      // Add item details (you can loop through items if needed)
-      const items = document.getElementById("invoice-items").getElementsByTagName("tr");
-      let rowY = 60; // starting Y position
-      for (let i = 0; i < items.length; i++) {
-        const cols = items[i].getElementsByTagName("td");
-        doc.text(cols[0].innerText, 20, rowY); // Item Description
-        doc.text(cols[1].innerText, 70, rowY); // Quantity
-        doc.text(cols[2].innerText, 110, rowY); // Size
-        doc.text(cols[3].innerText, 150, rowY); // Type
-        doc.text(cols[4].innerText, 190, rowY); // Unit Price
-        doc.text(cols[5].innerText, 230, rowY); // Total Price
-        rowY += 10;
-      }
-
-      // Save the PDF file
-      doc.save("sales_order_invoice.pdf");
+      // Hide the invoice content and show the after-submit message
+      document.getElementById('print-area').style.display = 'none';
+      document.getElementById('after-submit-message').style.display = 'block';
     }
 
     // Function for the submit button
