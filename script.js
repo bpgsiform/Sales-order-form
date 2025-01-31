@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const tableBody = document.querySelector('#order-table tbody');
       const newRow = document.createElement('tr');
 
-      const newRowHTML = `
+      const newRowHTML = ` 
         <td data-label="ITEM DESCRIPTION"><textarea></textarea></td>
         <td data-label="QUANTITY"><input type="number" class="quantity"></td>
         <td data-label="SIZE"><textarea></textarea></td>
