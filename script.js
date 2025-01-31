@@ -163,11 +163,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-// Function to handle the "Back" button click
-function goBack() {
-  window.history.back();
-}
-
 // Function to handle the "Submit" button click
 function submitInvoice() {
   // Generate PDF and upload to Google Drive
@@ -184,70 +179,34 @@ async function generatePDF() {
 
   doc.html(invoiceElement, {
     callback: async function (doc) {
-      // Save the PDF as a blob
+      // Generate the PDF as a Blob
       const pdfBlob = doc.output('blob');
+      const fileName = `transaction-${formData['transaction-date']}-${formData['account-name']}.pdf`;
 
-      // Create a FormData object to send the PDF
-      const formData = new FormData();
-      formData.append('file', pdfBlob, 'invoice.pdf');
-
-      try {
-        // Send the PDF to the server for uploading to Google Drive
-        const response = await fetch('/.netlify/functions/uploadToDrive', {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (response.ok) {
-          alert('Invoice submitted and uploaded successfully!');
-        } else {
-          alert('Failed to upload the invoice. Please try again.');
-        }
-      } catch (error) {
-        console.error('Error uploading the invoice:', error);
-        alert('An error occurred. Please try again.');
-      }
-
-      // Hide the invoice content
-      document.getElementById('print-area').style.display = 'none';
-
-      // Show the "after submit" message
-      document.getElementById('after-submit-message').style.display = 'block';
+      // Now send the PDF to the server for upload
+      await uploadPDF(pdfBlob, fileName);
     }
   });
 }
 
-// Function to handle the "Submit Another" button click
-function submitAnother() {
-  // Clear localStorage and reset border styles
-  localStorage.clear();
-  resetFormBorders();
+// Function to upload the PDF
+async function uploadPDF(pdfBlob, fileName) {
+  const formData = new FormData();
+  formData.append('file', pdfBlob, fileName); // Append the PDF file to FormData
 
-  // Redirect to the first page
-  window.location.href = 'index.html';
-}
+  try {
+    const response = await fetch('/uploadInvoice', {
+      method: 'POST',
+      body: formData,
+    });
 
-// Function to reset border styles of form fields
-function resetFormBorders() {
-  const requiredFields = [
-    "transaction-date",
-    "delivery-date",
-    "account-name",
-    "contact-person",
-    "contact-number",
-    "delivery-address",
-    "order-transmitted",
-    "confirmation-attachment",
-    "delivery-method",
-    "terms-of-payment",
-    "payment-transfer-mode",
-    "buyer-type"
-  ];
-  
-  requiredFields.forEach(id => {
-    const field = document.getElementById(id);
-    if (field) {
-      field.style.border = ""; // Reset border styles
+    if (response.ok) {
+      alert('Invoice uploaded successfully!');
+    } else {
+      alert('Failed to upload the invoice. Please try again.');
     }
-  });
+  } catch (error) {
+    console.error('Error uploading the invoice:', error);
+    alert('An error occurred while uploading the invoice. Please try again.');
+  }
 }
