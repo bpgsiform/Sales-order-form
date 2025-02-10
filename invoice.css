@@ -134,6 +134,10 @@ body {
     color: #707070;
   }
   
+  .invoice-foot .small-text {
+    font-size: 0.8rem;
+  }
+  
   .invoice-btns {
     display: flex;
     justify-content: space-between;
@@ -203,5 +207,11 @@ body {
     .back-btn,
     .download-btn {
       margin-bottom: 10px;
+    }
+  }
+  
+  @media print {
+    .invoice-btns {
+      display: none;
     }
   }
