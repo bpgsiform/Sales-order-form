@@ -185,7 +185,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to handle the "Download" button click and download the page as an image
   function downloadInvoiceAsImage() {
     const invoiceElement = document.querySelector('.invoice');
+    document.querySelector('.invoice-btns').style.display = 'none'; // Hide buttons
     html2canvas(invoiceElement).then(canvas => {
+      document.querySelector('.invoice-btns').style.display = 'flex'; // Show buttons again
       const link = document.createElement('a');
       link.download = 'invoice.png';
       link.href = canvas.toDataURL();
