@@ -155,6 +155,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('payment-transfer-mode').textContent = `Payment Transfer Mode: ${formData['payment-transfer-mode']}`;
         document.getElementById('buyer-type').textContent = `Buyer Type: ${formData['buyer-type']}`;
         document.getElementById('remarks').textContent = remarks;
+  
+        // Set the generated date and time
+        const now = new Date();
+        const formattedDateTime = now.toISOString().replace('T', ' ').split('.')[0];
+        document.getElementById('generated-on').textContent = formattedDateTime;
       }
   
       // Populate order details
