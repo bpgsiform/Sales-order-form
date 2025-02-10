@@ -151,6 +151,10 @@ body {
   background-color: #ffc107; /* Yellow for Go Back */
 }
 
+.next-page-btn {
+  background-color: #17a2b8; /* Teal for Next Page */
+}
+
 /* Responsive */
 @media screen and (max-width: 500px) {
   .form .column {
@@ -208,74 +212,4 @@ body {
 }
 
 @media screen and (max-width: 1080px) {
-  .fillable-table th, .fillable-table td {
-    padding: 6px;
-    font-size: 0.8rem;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .fillable-table th, .fillable-table td {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .fillable-table thead {
-    display: none;
-  }
-
-  .fillable-table tr {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .fillable-table td {
-    text-align: right;
-    position: relative;
-    padding-left: 50%;
-  }
-
-  .fillable-table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 10px;
-    width: calc(50% - 20px);
-    padding-right: 10px;
-    white-space: nowrap;
-    text-align: left;
-    font-weight: bold;
-  }
-}
-
-/* Remove Row Button Styles */
-.fillable-table .remove-row-button {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.fillable-table .remove-row-button:hover {
-  background-color: #ff1a1a;
-  transform: scale(1.05);
-}
-
-/* Table Title Styles */
-.order-container h2 {
-  margin-top: 1%;
-  margin-bottom: 1%;
-  padding: 1px;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #9900ff;
-  text-align: left;
-}
+  .fillable-table th, .fillable-table td
