@@ -7,8 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="invoice.css">
   <title>Invoice</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Include jsPDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script> <!-- Include html2pdf -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> <!-- Include html2canvas -->
   <style>
     .invoice-btns {
       display: flex;
@@ -17,14 +16,6 @@
     }
     .back-btn {
       background-color: #f0ad4e; /* Assuming this is the color of the "add order" button */
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .submit-btn {
-      background-color: #5cb85c; /* Green for the submit button */
       color: white;
       border: none;
       padding: 10px 20px;
@@ -53,6 +44,11 @@
       border-radius: 5px;
       display: block;
       margin: 20px auto;
+    }
+    .remarks {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #333;
     }
   </style>
 </head>
@@ -109,6 +105,7 @@
               <thead>
                 <tr>
                   <td class="text-bold">Item Description</td>
+                  <td class="text-bold">Item Code</td>
                   <td class="text-bold">Quantity</td>
                   <td class="text-bold">Size</td>
                   <td class="text-bold">Type</td>
@@ -122,20 +119,20 @@
             </table>
           </div>
         </div>
+        <div class="remarks">
+          <p><span class="text-bold">Remarks:</span> <span id="remarks"></span></p>
+        </div>
         <div class="invoice-foot text-center">
           <p><span class="text-bold text-center">NOTE:&nbsp;</span>This is a computer-generated receipt and does not require a physical signature.</p>
           <div class="invoice-btns">
             <button type="button" class="back-btn" onclick="goBack()">
               <span>Back</span>
             </button>
-            <button type="button" class="download-btn" onclick="downloadInvoice()">
+            <button type="button" class="download-btn" onclick="downloadInvoiceAsImage()">
               <span>
                 <i class="fa-solid fa-download"></i>
               </span>
               <span>Download</span>
-            </button>
-            <button type="button" class="submit-btn" onclick="submitInvoice()">
-              <span>Submit</span>
             </button>
           </div>
         </div>
@@ -152,54 +149,5 @@
   </div>
 
   <script src="script.js"></script>
-
-  <script>
-    // Function to generate PDF using html2pdf
-    function generatePDF() {
-      const element = document.querySelector('.invoice');  // Target the invoice element
-
-      const opt = {
-        margin:       0.5,     // Adjust margins if necessary
-        filename:     'invoice.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { dpi: 192, letterRendering: true },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-
-      html2pdf().from(element).set(opt).save().then(() => {
-        alert('Invoice submitted and uploaded successfully!');
-      }).catch(error => {
-        console.error('Error generating PDF:', error);
-        alert('Failed to generate PDF. Please try again.');
-      });
-
-      // Hide the invoice content and show the after-submit message
-      document.getElementById('print-area').style.display = 'none';
-      document.getElementById('after-submit-message').style.display = 'block';
-    }
-
-    // Function for the submit button
-    function submitInvoice() {
-      // Hide the invoice content
-      document.getElementById('print-area').style.display = 'none';
-
-      // Show the "after submit" message
-      document.getElementById('after-submit-message').style.display = 'block';
-
-      // Generate the PDF
-      generatePDF();
-    }
-
-    // Function to go back
-    function goBack() {
-      window.history.back();
-    }
-
-    // Function to submit another invoice
-    function submitAnother() {
-      localStorage.clear();
-      window.location.href = 'index.html';
-    }
-  </script>
 </body>
 </html>
