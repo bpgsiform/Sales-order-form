@@ -4,51 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="invoice.css">
   <title>Invoice</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> <!-- Include html2canvas -->
   <style>
-    .invoice-btns {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-    .back-btn {
-      background-color: #f0ad4e; /* Assuming this is the color of the "add order" button */
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .download-btn {
-      background-color: #0275d8; /* Blue for the download button */
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    #after-submit-message {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .submit-another-btn {
-      background-color: #0275d8; /* Blue for the submit another button */
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-      display: block;
-      margin: 20px auto;
-    }
-    .remarks {
-      margin-top: 20px;
-      font-size: 1rem;
-      color: #333;
+    body {
+      background-color: rgb(130, 106, 251);
     }
   </style>
 </head>
@@ -59,9 +20,9 @@
         <div class="invoice-head">
           <div class="invoice-head-top">
             <div class="invoice-head-top-left text-start">
-              <img src="bpgsi-logo.png" alt="Company Logo">
+              <img src="bpgsi-logo.png" alt="Company Logo" class="logo">
             </div>
-            <div class="invoice-head-top-right text-end">
+            <div class="invoice-head-top-right text-end invoice-title">
               <h3>Invoice</h3>
             </div>
           </div>
@@ -77,18 +38,18 @@
           <div class="hr"></div>
           <div class="invoice-head-bottom">
             <div class="invoice-head-bottom-left">
-              <ul>
-                <li class='text-bold'>Invoiced To:</li>
+              <ul class="no-bullets">
+                <li class='text-bold big-text invoiced-to'>Invoiced To:</li>
                 <li id="invoice-to-name"></li>
                 <li id="invoice-to-contact-person"></li>
                 <li id="invoice-to-designation"></li>
                 <li id="invoice-to-contact-number"></li>
-                <li id="invoice-to-address"></li>
+                <li id="invoice-to-address" class="wrap-text"></li>
               </ul>
             </div>
             <div class="invoice-head-bottom-right">
-              <ul>
-                <li class='text-bold'>Order Details:</li>
+              <ul class="no-bullets">
+                <li class='text-bold big-text order-details'>Order Details:</li>
                 <li id="order-transmitted"></li>
                 <li id="confirmation-attachment"></li>
                 <li id="delivery-method"></li>
@@ -99,6 +60,7 @@
             </div>
           </div>
         </div>
+        <div class="separator"></div>
         <div class="overflow-view">
           <div class="invoice-body">
             <table>
@@ -123,7 +85,8 @@
           <p><span class="text-bold">Remarks:</span> <span id="remarks"></span></p>
         </div>
         <div class="invoice-foot text-center">
-          <p><span class="text-bold text-center">NOTE:&nbsp;</span>This is a computer-generated receipt and does not require a physical signature.</p>
+          <p><span class="text-bold">Generated On:</span> <span id="generated-on"></span></p>
+          <p><span class="text-bold">NOTE:&nbsp;</span>This is a computer-generated receipt and does not require a physical signature.</p>
           <div class="invoice-btns">
             <button type="button" class="back-btn" onclick="goBack()">
               <span>Back</span>
