@@ -16,6 +16,7 @@
           <thead>
             <tr>
               <th>ITEM DESCRIPTION</th>
+              <th>ITEM CODE</th>
               <th>QUANTITY</th>
               <th>SIZE</th>
               <th>TYPE</th>
@@ -27,6 +28,7 @@
           <tbody>
             <tr>
               <td data-label="ITEM DESCRIPTION"><textarea></textarea></td>
+              <td data-label="ITEM CODE"><textarea></textarea></td>
               <td data-label="QUANTITY"><input type="number" class="quantity"></td>
               <td data-label="SIZE"><textarea></textarea></td>
               <td data-label="TYPE"><textarea></textarea></td>
@@ -37,9 +39,13 @@
           </tbody>
         </table>
       </div>
-      <button type="button" id="add-row-button">Add Order</button>
-      <button type="button" id="generate-invoice-button">Generate Invoice</button>
-      <button type="button" onclick="window.location.href='index.html'">Go back to Home Page</button>
+      <div class="input-box">
+        <label>Remarks</label>
+        <textarea id="remarks" placeholder="Enter remarks here"></textarea>
+      </div>
+      <button type="button" id="add-row-button" class="add-order-btn">Add Order</button>
+      <button type="button" id="generate-invoice-button" class="generate-invoice-btn">Generate Invoice</button>
+      <button type="button" onclick="window.location.href='index.html'" class="go-back-btn">Go back to Home Page</button>
     </div>
   </section>
 </body>
